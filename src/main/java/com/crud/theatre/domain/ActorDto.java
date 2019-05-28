@@ -1,0 +1,28 @@
+package com.crud.theatre.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@NoArgsConstructor
+public class ActorDto {
+    private Long id;
+    private String firstName;
+    private String lastName;
+
+    public ActorDto(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+
+}
