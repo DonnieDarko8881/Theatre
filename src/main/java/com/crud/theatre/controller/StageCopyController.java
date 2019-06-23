@@ -1,41 +1,39 @@
 package com.crud.theatre.controller;
 
-import com.crud.theatre.domain.*;
+import com.crud.theatre.domain.StageCopyDto;
+import com.crud.theatre.mapper.StageCopyMapper;
 import com.crud.theatre.service.DateService;
 import com.crud.theatre.service.StageCopyService;
 import com.crud.theatre.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/v1")
 public class StageCopyController {
-
-    private final StageService stageService;
     private final StageCopyService stageCopyService;
-    private final DateService dateService;
+    private final StageCopyMapper mapper;
 
-    @Autowired
-    public StageCopyController(StageService stageService, StageCopyService stageCopyService, DateService dateService) {
-        this.stageService = stageService;
+    public StageCopyController(StageCopyService stageCopyService, StageCopyMapper mapper) {
         this.stageCopyService = stageCopyService;
-        this.dateService = dateService;
+        this.mapper = mapper;
     }
 
-    @PostMapping(value = "/stageCopy/{stageId}")
-    public void saveStageCopy(@PathVariable("stageId") Long stageId,@RequestParam("dateId") long dateId) {
-        Stage stage = stageService.findById(stageId);
-        SpectacleDate spectacleDate = dateService.findById(dateId);
-        Set<Seats> seats = new HashSet<>();
-        StageCopy stageCopy = new StageCopy(stage,seats,spectacleDate);
-        for (int i = 0; i <stage.getSeatsAmount() ; i++) {
-            seats.add(new Seats(i+1,stageCopy, Status.FREE.toString()));
-        }
-        stageCopyService.save(stageCopy);
+    @PostMapping(value = "/stageCopies/{stageId}/dates/{dateId}/price/{spectaclePrice}")
+    public void saveStageCopy(@PathVariable long stageId, @PathVariable long dateId, @PathVariable BigDecimal spectaclePrice) {
+        stageCopyService.saveStageCopy(stageId, dateId, spectaclePrice);
+    }
+
+    @PutMapping(value = "/stageCopies/{stageCopyId}/seats/{seatsId}/status/{status}")
+    public void changeStatus(@PathVariable long stageCopyId, @PathVariable long seatsId, @PathVariable String status) {
+        stageCopyService.changeSeatsStatus(stageCopyId, seatsId, status);
+    }
+
+    @GetMapping(value = "/stageCopies")
+    public List<StageCopyDto> getStageCopies() {
+        return mapper.mapToStageCopyDtoList(stageCopyService.findAll());
     }
 }

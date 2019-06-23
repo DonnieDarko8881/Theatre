@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class StageDto {
-    private Long id;
+    private long id;
     private String name;
     private int seatsAmount;
 }

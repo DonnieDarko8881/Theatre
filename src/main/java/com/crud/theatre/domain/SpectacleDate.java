@@ -1,8 +1,6 @@
 package com.crud.theatre.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,6 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
+@Builder
 @Entity(name = "spectacle_date")
 public class SpectacleDate {
 
@@ -30,6 +30,10 @@ public class SpectacleDate {
     @ManyToOne
     @JoinColumn(name = "stage_id")
     private Stage stage;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="stage_copy_id")
+    private StageCopy stageCopy;
 
     public SpectacleDate(@NotNull LocalDateTime date, Spectacle spectacle, Stage stage) {
         this.date = date;

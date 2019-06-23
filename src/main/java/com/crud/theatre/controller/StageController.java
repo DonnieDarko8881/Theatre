@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/v1")
@@ -19,15 +20,13 @@ public class StageController {
     private final StageMapper stageMapper;
     private final StageService stageService;
     private final SpectacleMapper spectacleMapper;
-    private final SeatsMapper seatsMapper;
 
     @Autowired
     public StageController(StageMapper stageMapper, StageService stageService,
-                           SpectacleMapper spectacleMapper, SeatsMapper seatsMapper) {
+                           SpectacleMapper spectacleMapper) {
         this.stageMapper = stageMapper;
         this.stageService = stageService;
         this.spectacleMapper = spectacleMapper;
-        this.seatsMapper = seatsMapper;
     }
 
     @PostMapping(value = "/stages")
@@ -35,24 +34,20 @@ public class StageController {
         stageService.save(stageMapper.mapToStage(stageDto));
     }
 
-//    @PostMapping(value = "/stages/{stageId}/seats")
-//    public void addAmountOfSeats(@PathVariable("stageId") Long stageId, @RequestParam int howManySeats){
-//        Stage stage = stageService.findById(stageId);
-//        for (int i = 0; i < howManySeats; i++) {
-//            stage.getSeats().add(new Seats(i+1,stage, Status.FREE.toString()));
-//            stageService.save(stage);
-//        }
-//    }
 
-//    @GetMapping(value = "/stages/{stageId}/seats")
-//    public List<SeatsDto> getSeats(@PathVariable("stageId") Long stageId){
-//        Stage stage = stageService.findById(stageId);
-//        return seatsMapper.mapToSeatsDtoList(stage.getSeats());
-//    }
+    @GetMapping(value = "/stages")
+    public List<StageDto> getStages(){
+        return stageMapper.mapToStageDtoList(stageService.findAll());
+    }
+
+    @PutMapping(value = "/stages")
+    public StageDto updateStage(@RequestBody StageDto stageDto){
+        return stageMapper.mapToStageDto(stageService.save(stageMapper.mapToStage(stageDto)));
+    }
 
     @GetMapping(value = "/stages/{stageId}/spectacles")
-    public List<SpectacleDto> getSpectaclesFromStage(@PathVariable("stageId") Long stageId) {
+    public Set<SpectacleDto> getSpectaclesFromStage(@PathVariable("stageId") Long stageId) {
         Stage stage = stageService.findById(stageId);
-        return spectacleMapper.mapToSpectacleDtoList(stage.getSpectacles());
+        return spectacleMapper.mapToSpectacleDtoSet(stage.getSpectacles());
     }
 }

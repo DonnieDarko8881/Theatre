@@ -29,4 +29,8 @@ public class SpectacleService {
     public Spectacle findById(long spectacleId) throws SpectacleNotFoundException {
        return spectacleRepository.findById(spectacleId).orElseThrow(SpectacleNotFoundException::new);
     }
+
+    public void delete(Spectacle spectacle) {
+        spectacleRepository.delete(spectacle);
+    }
 }

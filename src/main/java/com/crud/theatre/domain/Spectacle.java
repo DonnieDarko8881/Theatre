@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -54,5 +55,19 @@ public class Spectacle {
     public Spectacle(String name, Stage stage) {
         this.name = name;
         this.stage = stage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Spectacle spectacle = (Spectacle) o;
+        return Objects.equals(id, spectacle.id) &&
+                Objects.equals(name, spectacle.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

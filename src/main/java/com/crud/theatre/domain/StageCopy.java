@@ -1,20 +1,17 @@
 package com.crud.theatre.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity(name = "stage_copy")
 public class StageCopy {
 
@@ -45,9 +42,13 @@ public class StageCopy {
             fetch = FetchType.EAGER)
     private Set<Reservation> reservations = new HashSet<>();
 
-    public StageCopy(Stage stage, Set<Seats> seats, SpectacleDate spectacleDate) {
+    @Column(name = "spectacle_price_PLN")
+    private BigDecimal spectaclePricePLN;
+
+    public StageCopy(Stage stage, Set<Seats> seats, SpectacleDate spectacleDate, BigDecimal spectaclePricePLN) {
         this.stage = stage;
         this.seats = seats;
         this.spectacleDate = spectacleDate;
+        this.spectaclePricePLN = spectaclePricePLN;
     }
 }

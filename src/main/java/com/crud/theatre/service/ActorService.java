@@ -26,6 +26,10 @@ public class ActorService {
         return actorRepository.findById(actorId).orElseThrow(ActorNotFoundException::new);
     }
 
+    public void delete(long actorId){
+        actorRepository.deleteById(actorId);
+    }
+
     public void save(Actor actor){
         actorRepository.save(actor);
     }

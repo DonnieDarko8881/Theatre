@@ -1,81 +1,60 @@
 package com.crud.theatre.controller;
 
-import com.crud.theatre.domain.*;
-import com.crud.theatre.mapper.ActorMapper;
-import com.crud.theatre.mapper.SpectacleMapper;
-import com.crud.theatre.service.ActorService;
-import com.crud.theatre.service.DateService;
-import com.crud.theatre.service.SpectacleService;
-import com.crud.theatre.service.StageService;
+import com.crud.theatre.Facade.SpectacleFacade;
+import com.crud.theatre.domain.ActorDto;
+import com.crud.theatre.domain.SpectacleDateDto;
+import com.crud.theatre.domain.SpectacleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/v1")
 public class SpectacleController {
 
-    private final SpectacleMapper spectacleMapper;
-    private final SpectacleService spectacleService;
-    private final ActorService actorService;
-    private final ActorMapper actorMapper;
-    private final DateService dateService;
-    private final StageService stageService;
+    private final SpectacleFacade facade;
 
     @Autowired
-    public SpectacleController(SpectacleMapper spectacleMapper, SpectacleService spectacleService,
-                               ActorService actorService, ActorMapper actorMapper,
-                               DateService dateService, StageService stageService) {
-        this.spectacleMapper = spectacleMapper;
-        this.spectacleService = spectacleService;
-        this.actorService = actorService;
-        this.actorMapper = actorMapper;
-        this.dateService = dateService;
-        this.stageService = stageService;
+    public SpectacleController(SpectacleFacade facade) {
+        this.facade = facade;
     }
 
     @PostMapping(value = "/spectacles")
-    public void saveSpectacle(@RequestBody SpectacleDto spectacleDto) {
-        spectacleService.save(spectacleMapper.mapToSpectacle(spectacleDto));
+    public void save(@RequestBody SpectacleDto spectacleDto) {
+        facade.save(spectacleDto);
     }
 
     @GetMapping(value = "/spectacles")
-    public List<SpectacleDto> getSpectacles() {
-        return spectacleMapper.mapToSpectacleDtoList(spectacleService.findAll());
+    public List<SpectacleDto> findAll() {
+        return facade.findAll();
     }
 
     @GetMapping(value = "/spectacles/{spectacleId}/cast")
-    public List<ActorDto> getActors(@PathVariable("spectacleId") Long spectacleId) {
-        Spectacle spectacle = spectacleService.findById(spectacleId);
-        return actorMapper.mapToActorDtoList(spectacle.getCast());
+    public List<ActorDto> getCast(@PathVariable("spectacleId") Long spectacleId) {
+        return facade.getCast(spectacleId);
     }
 
     @GetMapping(value = "/spectacles/{spectacleId}/dates")
     public List<SpectacleDateDto> getDates(@PathVariable("spectacleId") Long spectacleId) {
-        Spectacle spectacle = spectacleService.findById(spectacleId);
-        return spectacleMapper.mapToDateDtoList(spectacle.getSpectacleDates());
+        return facade.getDates(spectacleId);
     }
 
-    @PutMapping(value = "/spectacles/addActor")
-    public void addActorToCast(@RequestParam("spectacleId") long spectacleId,
-                               @RequestParam("actorId") long actorId) {
-        Spectacle spectacle = spectacleService.findById(spectacleId);
-        Actor actor = actorService.findById(actorId);
-        if (!spectacle.getCast().contains(actor)) {
-            spectacle.getCast().add(actor);
-            actor.getSpectacles().add(spectacle);
-            spectacleService.save(spectacle);
-        }
+    @PutMapping(value = "/spectacles/{spectacleId}/actors/{actorId}")
+    public void addActorToCast(@PathVariable long spectacleId, @PathVariable long actorId) {
+        facade.addActorToCast(spectacleId, actorId);
     }
 
-    @PostMapping(value = "/spectacles/{spectacleId}/dates")
-    public void addSpectacleDate(@PathVariable("spectacleId") Long spectacleId,
-                                 @RequestBody SpectacleDateDto dateDto) {
-        Spectacle spectacle = spectacleService.findById(spectacleId);
-        Stage stage = stageService.findById(spectacle.getStage().getId());
-        SpectacleDate spectacleDate = new SpectacleDate(dateDto.getDate(), spectacle, stage);
-        stage.getDates().add(spectacleDate);
-        dateService.save(spectacleDate);
+    @PostMapping(value = "/spectacles/{spectacleId}/dates", consumes = APPLICATION_JSON_VALUE)
+    public void saveSpectacleDate(@PathVariable("spectacleId") long spectacleId,
+                                  @RequestBody SpectacleDateDto dateDto) {
+        facade.saveSpectacleDate(spectacleId, dateDto);
+    }
+
+    @DeleteMapping(value = "/spectacles/{spectacleId}")
+    public void delete(@PathVariable long spectacleId) {
+        facade.delete(spectacleId);
     }
 }
