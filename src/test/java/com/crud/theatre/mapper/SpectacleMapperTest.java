@@ -42,7 +42,7 @@ public class SpectacleMapperTest {
         assertEquals(0, spectacle.getCast().size());
         assertEquals(0, spectacle.getSpectacleDates().size());
         assertEquals("spectacle name", spectacle.getName());
-        assertEquals(3l, spectacle.getStage().getId().longValue());
+        assertEquals(3l, spectacle.getStage().getId());
     }
 
     @Test
@@ -107,6 +107,6 @@ public class SpectacleMapperTest {
 
         assertEquals(1l, spectacleDateDto.getId());
         assertEquals(LocalDateTime.parse("2000-10-10T10:50"), spectacleDateDto.getDate());
-        assertEquals(1,spectacleDateDtoList.size());
+        assertEquals(1, spectacleDateDtoList.size());
     }
 }

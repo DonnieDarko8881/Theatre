@@ -17,7 +17,6 @@ public class FixerService {
         this.fixerClient = fixerClient;
     }
 
-
     public BigDecimal getEuroFromPLN(double amountPLN) {
         return ratePLNToEUR().multiply(new BigDecimal(amountPLN)).setScale(2,RoundingMode.HALF_UP);
     }
@@ -39,5 +38,4 @@ public class FixerService {
     private FixerEuroBaseDto getFixerEuroBaseDto(){
         return fixerClient.getCurrentRates();
     }
-
 }

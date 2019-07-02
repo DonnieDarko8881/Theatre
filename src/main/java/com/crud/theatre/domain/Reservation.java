@@ -17,7 +17,7 @@ public class Reservation {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "reservation_date")
     @NotNull
@@ -44,19 +44,5 @@ public class Reservation {
         this.stageCopy = stageCopy;
         this.seats = seats;
         this.seatsNumber = seatsNumber;
-    }
-
-    //do usuniecia
-
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", reservationDate=" + reservationDate +
-                ", user=" + user +
-                ", stageCopy=" + stageCopy +
-                ", seats=" + seats +
-                ", seatsNumber=" + seatsNumber +
-                '}';
     }
 }

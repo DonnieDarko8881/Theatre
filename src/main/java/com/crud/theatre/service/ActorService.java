@@ -18,7 +18,7 @@ public class ActorService {
         this.actorRepository = actorRepository;
     }
 
-    public List<Actor> findAll(){
+    public List<Actor> findAll() {
         return actorRepository.findAll();
     }
 
@@ -26,11 +26,11 @@ public class ActorService {
         return actorRepository.findById(actorId).orElseThrow(ActorNotFoundException::new);
     }
 
-    public void delete(long actorId){
+    public void delete(long actorId) {
         actorRepository.deleteById(actorId);
     }
 
-    public void save(Actor actor){
+    public void save(Actor actor) {
         actorRepository.save(actor);
     }
 }

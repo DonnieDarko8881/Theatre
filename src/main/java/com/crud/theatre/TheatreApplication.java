@@ -1,6 +1,5 @@
 package com.crud.theatre;
 
-import com.crud.theatre.clients.apixu.config.ApixuConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

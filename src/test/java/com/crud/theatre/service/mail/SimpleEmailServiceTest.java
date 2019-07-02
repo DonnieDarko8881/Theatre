@@ -1,7 +1,9 @@
 package com.crud.theatre.service.mail;
 
 import com.crud.theatre.clients.fixer.service.FixerService;
+import com.crud.theatre.domain.Apixu.forecast.forcastDay.Day.Day;
 import com.crud.theatre.domain.Mail;
+import com.crud.theatre.domain.StageCopy;
 import com.crud.theatre.domain.User;
 import com.crud.theatre.repository.MailRepository;
 import org.junit.Test;
@@ -36,9 +38,8 @@ public class SimpleEmailServiceTest {
         //Given
         Mail mail = new Mail("test@test.com", "Test", "Test");
         User user = new User("firstName", "lastName", "test@test.com", "password");
-
         //when
-        simpleEmailService.send(user,mail);
+        simpleEmailService.sendReminder(user,any(Day.class),mail);
 
         //Then
         verify(javaMailSender,times(1)).send(any(MimeMessagePreparator.class));

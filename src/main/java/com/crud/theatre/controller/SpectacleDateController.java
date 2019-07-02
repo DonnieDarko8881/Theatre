@@ -2,8 +2,7 @@ package com.crud.theatre.controller;
 
 import com.crud.theatre.Facade.SpectacleDateFacade;
 import com.crud.theatre.domain.*;
-import com.crud.theatre.mapper.SpectacleDateMapper;
-import com.crud.theatre.service.DateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +13,7 @@ public class SpectacleDateController {
 
     private final SpectacleDateFacade facade;
 
+    @Autowired
     public SpectacleDateController(SpectacleDateFacade facade) {
         this.facade = facade;
     }

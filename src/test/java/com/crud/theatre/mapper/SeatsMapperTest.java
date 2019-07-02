@@ -27,7 +27,7 @@ public class SeatsMapperTest {
         StageCopy stageCopy = StageCopy.builder().id(3l).build();
 
         Set<Seats> seatsSet = new HashSet<>();
-        seatsSet.add(new Seats(1l,2,stageCopy, Status.FREE.toString()));
+        seatsSet.add(new Seats(1l, 2, stageCopy, Status.FREE.toString()));
 
         //when
         List<SeatsDto> seatsDtoList = seatsMapper.mapToSeatsDtoList(seatsSet);
@@ -35,7 +35,7 @@ public class SeatsMapperTest {
         //then
         SeatsDto seatsDto = seatsDtoList.get(0);
 
-        assertEquals(1,seatsDtoList.size());
+        assertEquals(1, seatsDtoList.size());
         assertEquals(1l, seatsDto.getId());
         assertEquals(2, seatsDto.getNumber());
         assertEquals(3l, seatsDto.getStageCopyId());

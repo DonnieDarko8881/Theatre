@@ -1,10 +1,7 @@
 package com.crud.theatre.domain;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,13 +12,15 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@Data
 @Entity(name = "spectacle")
 public class Spectacle {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -45,29 +44,8 @@ public class Spectacle {
     )
     private List<Actor> cast = new ArrayList<>();
 
-    //    )
-//    @OneToMany(
-//            targetEntity = Actor.class,
-//            mappedBy = "spectacle",
-//            cascade = CascadeType.ALL,
-//            fetch = FetchType.EAGER)
-
     public Spectacle(String name, Stage stage) {
         this.name = name;
         this.stage = stage;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Spectacle spectacle = (Spectacle) o;
-        return Objects.equals(id, spectacle.id) &&
-                Objects.equals(name, spectacle.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 }

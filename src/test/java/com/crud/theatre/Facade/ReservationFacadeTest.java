@@ -74,7 +74,8 @@ public class ReservationFacadeTest {
         verify(userService, times(1)).save(user);
         verify(seatsService, times(1)).save(any(Seats.class));
         verify(reservationService, times(1)).save(any());
-        verify(simpleEmailService, times(1)).sendReservationMail(user, stageCopy.getSpectaclePricePLN());
+        verify(simpleEmailService, times(1)).sendReservationMail(
+                any(User.class), any(StageCopy.class), any(Seats.class), any(Mail.class));
     }
 
     @Test
@@ -92,11 +93,11 @@ public class ReservationFacadeTest {
 
         //then
         reservationDtoList.stream().forEach(reservation -> {
-            assertEquals(1l, reservation.getReservationId().longValue());
+            assertEquals(1l, reservation.getReservationId());
             assertNotNull("2019-06-15T19:00:07", reservation.getReservationDate());
-            assertEquals(2l, reservation.getUserId().longValue());
-            assertEquals(3l, reservation.getStageCopyId().longValue());
-            assertEquals(4l, reservation.getSeatsId().longValue());
+            assertEquals(2l, reservation.getUserId());
+            assertEquals(3l, reservation.getStageCopyId());
+            assertEquals(4l, reservation.getSeatsId());
             assertEquals(5, reservation.getSeatsNumber().intValue());
         });
     }

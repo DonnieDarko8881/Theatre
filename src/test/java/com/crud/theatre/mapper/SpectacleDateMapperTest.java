@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -26,8 +26,8 @@ public class SpectacleDateMapperTest {
     private StageMapper stageMapper;
 
     @Before
-    public void init(){
-        StageDto stageDto = new StageDto(1l,"test stageName",10);
+    public void init() {
+        StageDto stageDto = new StageDto(1l, "test stageName", 10);
         when(stageMapper.mapToStageDto(any(Stage.class))).thenReturn(stageDto);
     }
 
@@ -61,7 +61,7 @@ public class SpectacleDateMapperTest {
         //then
         SpectacleDateDto spectacleDateDto = spectacleDateDtoList.get(0);
 
-        assertEquals(3l, spectacleDateDto.getStageCopyDto().getId().longValue());
+        assertEquals(3l, spectacleDateDto.getStageCopyDto().getId());
         assertEquals(LocalDateTime.parse("2000-10-10T16:50"), spectacleDateDto.getDate());
         assertEquals(1l, spectacleDateDto.getSpectacleDto().getId());
         assertEquals("test name", spectacleDateDto.getSpectacleDto().getName());
@@ -78,7 +78,7 @@ public class SpectacleDateMapperTest {
         SpectacleDateDto spectacleDateDto = spectacleDateMapper.mapToSpectacleDateDto(spectacleDate);
 
         //Then
-        assertEquals(3l, spectacleDateDto.getStageCopyDto().getId().longValue());
+        assertEquals(3l, spectacleDateDto.getStageCopyDto().getId());
         assertEquals(LocalDateTime.parse("2000-10-10T16:50"), spectacleDateDto.getDate());
         assertEquals(1l, spectacleDateDto.getSpectacleDto().getId());
         assertEquals("test name", spectacleDateDto.getSpectacleDto().getName());
@@ -86,12 +86,12 @@ public class SpectacleDateMapperTest {
 
     }
 
-    private SpectacleDate getSpectacleDate(StageCopy stageCopy){
-        Stage stage = new Stage(1l,"test stageName",10);
+    private SpectacleDate getSpectacleDate(StageCopy stageCopy) {
+        Stage stage = new Stage(1l, "test stageName", 10);
         return SpectacleDate.builder()
                 .id(1l)
                 .date(LocalDateTime.parse("2000-10-10T16:50"))
-                .spectacle(new Spectacle(1l,"test name",stage,new ArrayList<>(),new ArrayList<>()))
+                .spectacle(new Spectacle(1l, "test name", stage, new ArrayList<>(), new ArrayList<>()))
                 .stage(stage)
                 .stageCopy(stageCopy)
                 .build();

@@ -2,8 +2,6 @@ package com.crud.theatre.clients.fixer.client;
 
 import com.crud.theatre.domain.Fixer.FixerEuroBaseDto;
 import com.crud.theatre.clients.fixer.config.FixerConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -11,16 +9,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-
 @Component
 public class FixerClient {
-//    private static final Logger LOGGER = LoggerFactory.getLogger(FixerClient.class);
+
+    private final RestTemplate restTemplate;
+    private final FixerConfig fixerConfig;
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    private FixerConfig fixerConfig;
+    public FixerClient(RestTemplate restTemplate, FixerConfig fixerConfig) {
+        this.restTemplate = restTemplate;
+        this.fixerConfig = fixerConfig;
+    }
 
     public FixerEuroBaseDto getCurrentRates() {
         URI uri = getUriFetchCurrentCurrency();
@@ -33,6 +32,4 @@ public class FixerClient {
                 .queryParam("symbols", "USD,PLN,GBP")
                 .build().encode().toUri();
     }
-
-
 }

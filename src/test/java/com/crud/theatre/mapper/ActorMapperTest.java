@@ -12,7 +12,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ActorMapperTest {
 
@@ -22,32 +24,33 @@ public class ActorMapperTest {
     @Test
     public void mapToActor() {
         //given
-        ActorDto actorDto = new ActorDto(1l,"test firstName", "test lastName");
+        ActorDto actorDto = new ActorDto(1l, "test firstName", "test lastName");
 
         //when
         Actor actor = actorMapper.mapToActor(actorDto);
 
         //then
-        assertNotEquals(actor,actorDto);
-        assertEquals("test firstName",actor.getFirstName());
-        assertEquals("test lastName",actor.getLastName());
+        assertNotEquals(actor, actorDto);
+        assertEquals("test firstName", actor.getFirstName());
+        assertEquals("test lastName", actor.getLastName());
     }
 
     @Test
     public void mapToActorDtoList() {
         //Given
         List<Actor> actors = new ArrayList<>();
-        actors.add(new Actor(1l,"test firstName", "test lastName", Collections.emptyList()));
+        actors.add(new Actor(1l, "test firstName", "test lastName", Collections.emptyList()));
 
         //when
         List<ActorDto> actorDtoList = actorMapper.mapToActorDtoList(actors);
 
         //then
-        assertNotEquals(actors,actorDtoList);
-        assertEquals(Optional.of(1l),Optional.of(actorDtoList.get(0).getId()));
-        assertEquals("test firstName",actorDtoList.get(0).getFirstName());
-        assertEquals("test lastName",actorDtoList.get(0).getLastName());
+        assertNotEquals(actors, actorDtoList);
+        assertEquals(Optional.of(1l), Optional.of(actorDtoList.get(0).getId()));
+        assertEquals("test firstName", actorDtoList.get(0).getFirstName());
+        assertEquals("test lastName", actorDtoList.get(0).getLastName());
     }
+
     @Test
     public void mapToEmptyActorDtoList() {
         //Given
@@ -57,6 +60,6 @@ public class ActorMapperTest {
         List<ActorDto> actorDtoList = actorMapper.mapToActorDtoList(actors);
 
         //then
-        assertEquals(0,actorDtoList.size());
+        assertEquals(0, actorDtoList.size());
     }
 }

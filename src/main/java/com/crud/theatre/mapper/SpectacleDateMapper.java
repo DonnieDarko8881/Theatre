@@ -32,7 +32,7 @@ public class SpectacleDateMapper {
                 .collect(Collectors.toList());
     }
 
-    private StageCopyDto mapToStageCopyDto(SpectacleDate date) {
+    private StageCopyDto mapToStageCopyDto(final SpectacleDate date) {
         try {
             return StageCopyDto.builder()
                     .id(date.getStageCopy().getId())
@@ -42,11 +42,11 @@ public class SpectacleDateMapper {
         }
     }
 
-    private SpectacleDto mapToSpectacleDto(SpectacleDate date) {
+    private SpectacleDto mapToSpectacleDto(final SpectacleDate date) {
         return new SpectacleDto(date.getSpectacle().getId(), date.getSpectacle().getName());
     }
 
-    public SpectacleDateDto mapToSpectacleDateDto(SpectacleDate spectacleDate) {
+    public SpectacleDateDto mapToSpectacleDateDto(final SpectacleDate spectacleDate) {
         return SpectacleDateDto.builder()
                 .id(spectacleDate.getId())
                 .date(spectacleDate.getDate())

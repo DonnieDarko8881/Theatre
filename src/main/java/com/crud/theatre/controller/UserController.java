@@ -1,18 +1,13 @@
 package com.crud.theatre.controller;
 
 import com.crud.theatre.domain.Success;
-import com.crud.theatre.domain.User;
 import com.crud.theatre.domain.UserDto;
-import com.crud.theatre.exception.UserNotFoundException;
 import com.crud.theatre.mapper.UserMapper;
 import com.crud.theatre.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -30,23 +25,23 @@ public class UserController {
     }
 
     @PostMapping(value = "/users", consumes = APPLICATION_JSON_VALUE)
-    public void save(@RequestBody UserDto userDto){
+    public void save(@RequestBody UserDto userDto) {
         userService.save(userMapper.mapToUser(userDto));
     }
 
     @GetMapping(value = "/users")
-    public List<UserDto> findAll(){
+    public List<UserDto> findAll() {
         return userMapper.mapToUserDtoListWithOutPassword(userService.findAll());
     }
 
     @GetMapping(value = "/users/{mail}")
-    public Success mailExist(@PathVariable String mail){
-       return userService.mailExist(mail);
+    public Success mailExist(@PathVariable String mail) {
+        return userService.mailExist(mail);
     }
 
     @GetMapping(value = "/users/{mail}/{password}")
-    public Success loginSuccess(@PathVariable String mail, @PathVariable String  password){
-        return userService.login(mail,password);
+    public Success loginSuccess(@PathVariable String mail, @PathVariable String password) {
+        return userService.login(mail, password);
     }
 
     @GetMapping(value = "/users/findBy/{mail}")

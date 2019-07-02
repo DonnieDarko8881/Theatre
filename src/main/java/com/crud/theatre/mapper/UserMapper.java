@@ -15,7 +15,7 @@ public class UserMapper {
                 userDto.getMail(), userDto.getPassword());
     }
 
-    public UserDto mapToUserDtoWithOutPassword(User user){
+    public UserDto mapToUserDtoWithOutPassword(final User user){
         return new UserDto(
                 user.getId(),
                 user.getFirstName(),
@@ -23,7 +23,7 @@ public class UserMapper {
                 user.getMail());
     }
 
-    public List<UserDto> mapToUserDtoListWithOutPassword(List<User> users) {
+    public List<UserDto> mapToUserDtoListWithOutPassword(final List<User> users) {
         return users.stream()
                 .map(user -> new UserDto(
                         user.getId(),

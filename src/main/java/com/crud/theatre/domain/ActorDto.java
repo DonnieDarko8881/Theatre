@@ -14,12 +14,11 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class ActorDto {
-    private Long id;
+    private long id;
     private String firstName;
     private String lastName;
 
-
-    public ActorDto(Long id, String firstName, String lastName) {
+    public ActorDto(long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -4,7 +4,6 @@ import com.crud.theatre.domain.Seats;
 import com.crud.theatre.repository.SeatsRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -16,11 +15,11 @@ public class SeatsService {
         this.seatsRepository = seatsRepository;
     }
 
-    public void save(Seats seats){
+    public void save(Seats seats) {
         seatsRepository.save(seats);
     }
 
-    public void deleteListSeats(Set<Seats> seats){
+    public void deleteListSeats(Set<Seats> seats) {
         seatsRepository.deleteAll(seats);
     }
 }

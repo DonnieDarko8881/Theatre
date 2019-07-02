@@ -19,7 +19,7 @@ public class Actor {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "first_name")
     private String firstName;

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -28,26 +29,30 @@ public class EmailScheduler {
     }
 
 //    @Scheduled(fixedDelay = 20000)
+   @Scheduled(cron = "0 0 10 * * *")
     public void sendReminderEmail() {
         Day day = apixuClient.getForecastTomorrow().getForecast().getForecastday().get(1).getDay();
         List<Reservation> reservations = reservationService.findAll();
         reservations.stream()
-                .filter(reservation -> reservation.getStageCopy().getSpectacleDate().getDate().getDayOfYear() - LocalDateTime.now().getDayOfYear() == 1)
+                .filter(reservation -> {
+                    int dayOfYear = reservation.getStageCopy().getSpectacleDate().getDate().getDayOfYear();
+                    return dayOfYear - LocalDateTime.now().getDayOfYear() == 1;
+                })
                 .forEach(reservation -> {
                     simpleEmailService.sendReminder(reservation.getUser(), day,
-                            new Mail(reservation.getUser().getMail(), "Reminder",
-                                    spectacleMessagee(reservation)));
+                            new Mail(reservation.getUser().getMail(), "Reminder", spectacleMessage(reservation)));
                 });
     }
 
-    private String spectacleMessagee(Reservation reservation) {
-        String spectacleDate = reservation.getStageCopy().getSpectacleDate().getDate().toLocalDate().toString();
-        String spectacleTime = reservation.getStageCopy().getSpectacleDate().getDate().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+    private String spectacleMessage(Reservation reservation) {
+        @NotNull LocalDateTime date = reservation.getStageCopy().getSpectacleDate().getDate();
+        String spectacleDate = date.toLocalDate().toString();
+        String spectacleTime = date.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
         String stageName = reservation.getStageCopy().getStage().getName();
         String spectacleName = reservation.getStageCopy().getSpectacleDate().getSpectacle().getName();
-        return "we would like to remind you about tomorrow's spectacle which you have reservation: \n" +
+        return "we would like to remind you about tomorrow's spectacle which you made reservation: \n" +
                 "Date: " + spectacleDate + " " + spectacleTime +
-                ". "+ spectacleName +" will be in " + stageName + " Seats Number " + reservation.getSeatsNumber()+". ";
-
+                ". " + spectacleName + " will take place in " + stageName +
+                " Seats Number " + reservation.getSeatsNumber() + ". ";
     }
 }

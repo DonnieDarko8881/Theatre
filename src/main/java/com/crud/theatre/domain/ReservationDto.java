@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 public class ReservationDto {
-    private Long reservationId;
+    private long reservationId;
     private LocalDateTime reservationDate;
-    private Long userId;
-    private Long stageCopyId;
-    private Long seatsId;
+    private long userId;
+    private long stageCopyId;
+    private long seatsId;
     private Integer seatsNumber;
 
-    public ReservationDto(Long userId, Long stageCopyId, Integer seatsNumber) {
+    public ReservationDto(long userId, long stageCopyId, Integer seatsNumber) {
         this.userId = userId;
         this.stageCopyId = stageCopyId;
         this.seatsNumber = seatsNumber;

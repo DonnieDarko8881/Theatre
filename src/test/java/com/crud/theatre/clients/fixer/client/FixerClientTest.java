@@ -1,7 +1,5 @@
 package com.crud.theatre.clients.fixer.client;
 
-import com.crud.theatre.clients.apixu.client.ApixuClient;
-import com.crud.theatre.clients.apixu.config.ApixuConfig;
 import com.crud.theatre.clients.fixer.config.FixerConfig;
 import com.crud.theatre.domain.Fixer.FixerEuroBaseDto;
 import com.crud.theatre.domain.Fixer.Rates;
@@ -18,11 +16,11 @@ import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FixerClientTest {
+
     @InjectMocks
     private FixerClient fixerClient;
 
@@ -38,7 +36,7 @@ public class FixerClientTest {
         BigDecimal USD = new BigDecimal(1.2);
         BigDecimal GBP = new BigDecimal(0.8);
         BigDecimal PLN = new BigDecimal(4.0);
-        
+
         FixerEuroBaseDto fixerEuroBaseDto = new FixerEuroBaseDto("EUR",
                 new Rates(USD, GBP, PLN));
 
@@ -53,10 +51,9 @@ public class FixerClientTest {
 
         //then
         assertNotNull(currentRates);
-        assertEquals("EUR",currentRates.getBase());
-        assertEquals(USD,currentRates.getRates().getUSD());
-        assertEquals(GBP,currentRates.getRates().getGBP());
-        assertEquals(PLN,currentRates.getRates().getPLN());
-
+        assertEquals("EUR", currentRates.getBase());
+        assertEquals(USD, currentRates.getRates().getUSD());
+        assertEquals(GBP, currentRates.getRates().getGBP());
+        assertEquals(PLN, currentRates.getRates().getPLN());
     }
 }

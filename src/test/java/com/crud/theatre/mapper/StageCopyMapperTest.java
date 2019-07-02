@@ -74,11 +74,11 @@ public class StageCopyMapperTest {
 
         //then
         StageCopyDto stageCopyDto = stageCopyDtoList.get(0);
-        assertEquals(1l, stageCopyDto.getId().longValue());
+        assertEquals(1l, stageCopyDto.getId());
         //stageCopyDto.getSpectaclePricePLN()
-        assertEquals(new BigDecimal(80),stageCopyDto.getSpectaclePricePLN());
+        assertEquals(new BigDecimal(80), stageCopyDto.getSpectaclePricePLN());
         //SpectacleDateDto.Date
-        assertEquals(LocalDateTime.parse("2000-10-10T16:50"),stageCopyDto.getSpectacleDateDto().getDate());
+        assertEquals(LocalDateTime.parse("2000-10-10T16:50"), stageCopyDto.getSpectacleDateDto().getDate());
         //SpectacleDateDto.SeatsDto
         SeatsDto seatsDto = stageCopyDto.getSeats().get(0);
         assertEquals(10l, seatsDto.getId());
@@ -91,11 +91,11 @@ public class StageCopyMapperTest {
         assertEquals(10, stageDto.getSeatsAmount());
         //SpectacleDateDto.SpectacleDto
         SpectacleDto spectacleDto = stageCopyDto.getSpectacleDateDto().getSpectacleDto();
-        assertEquals(2l,spectacleDto.getId());
-        assertEquals("spectacleName",spectacleDto.getName());
-        assertEquals(1l,spectacleDto.getStageId().longValue());
+        assertEquals(2l, spectacleDto.getId());
+        assertEquals("spectacleName", spectacleDto.getName());
+        assertEquals(1l, spectacleDto.getStageId().longValue());
         //SpectacleDateDto.stageCopyDto
         long stageCopyDtoId = stageCopyDto.getSpectacleDateDto().getStageCopyDto().getId();
-        assertEquals(1l,stageCopyDtoId);
+        assertEquals(1l, stageCopyDtoId);
     }
 }

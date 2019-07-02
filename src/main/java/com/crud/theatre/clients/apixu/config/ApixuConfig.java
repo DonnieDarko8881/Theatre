@@ -13,5 +13,4 @@ public class ApixuConfig {
 
     @Value("${apixu.api.key}")
     private String apixuAppKey;
-
 }

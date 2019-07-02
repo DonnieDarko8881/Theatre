@@ -1,8 +1,9 @@
 package com.crud.theatre.service.mail;
 
-import com.crud.theatre.clients.fixer.service.FixerService;
 import com.crud.theatre.domain.Apixu.forecast.forcastDay.Day.Day;
 import com.crud.theatre.domain.Mail;
+import com.crud.theatre.domain.Seats;
+import com.crud.theatre.domain.StageCopy;
 import com.crud.theatre.domain.User;
 import com.crud.theatre.repository.MailRepository;
 import org.slf4j.Logger;
@@ -15,8 +16,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 public class SimpleEmailService {
     private final static Logger LOGGER = LoggerFactory.getLogger(SimpleMailMessage.class);
@@ -28,15 +27,12 @@ public class SimpleEmailService {
     private MailCreatorService mailCreatorService;
 
     @Autowired
-    private FixerService fixerService;
-
-    @Autowired
     private MailRepository mailRepository;
 
-    public void send(User user, Mail mail) {
+    public void sendReservationMail(User user, StageCopy stageCopy, Seats seats, Mail mail) {
         LOGGER.info("Starting email preparation...");
         try {
-            javaMailSender.send(createMimeMessage(user, mail));
+            javaMailSender.send(createMimeMessage(user, stageCopy, seats, mail));
             mailRepository.save(mail);
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
@@ -44,17 +40,8 @@ public class SimpleEmailService {
         }
     }
 
-    public void sendReservationMail(User user, BigDecimal spectaclePricePln){
-        double amountPLN = spectaclePricePln.doubleValue();
-        send(user, new Mail(user.getMail(), "reservation", "pay one of the following currencies: \n\n"
-                        + spectaclePricePln + " PLN\n\n" +
-                        fixerService.getEuroFromPLN(amountPLN) + " EUR\n\n"+
-                        fixerService.getGBNFromPLN(amountPLN) + " GBN\n\n"+
-                        fixerService.getUSDFromPLN(amountPLN) + " USD")
-        );
-    }
 
-    public void sendReminder(User user,Day day, Mail mail) {
+    public void sendReminder(User user, Day day, Mail mail) {
         LOGGER.info("Starting email preparation...");
         try {
             javaMailSender.send(createReminderMimeMessage(user, day, mail));
@@ -65,12 +52,12 @@ public class SimpleEmailService {
         }
     }
 
-    public MimeMessagePreparator createMimeMessage(final User user, final Mail mail) {
+    public MimeMessagePreparator createMimeMessage(final User user, StageCopy stageCopy, Seats seats, final Mail mail) {
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildMakeReservationMail(user, mail), true);
+            messageHelper.setText(mailCreatorService.buildMakeReservationMail(user, stageCopy, seats, mail), true);
         };
     }
 
@@ -79,7 +66,7 @@ public class SimpleEmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildReminderMail(user,day, mail), true);
+            messageHelper.setText(mailCreatorService.buildReminderMail(user, day, mail), true);
         };
     }
 }

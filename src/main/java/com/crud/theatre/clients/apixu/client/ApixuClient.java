@@ -11,11 +11,15 @@ import java.net.URI;
 
 @Component
 public class ApixuClient {
-    @Autowired
-    private RestTemplate restTemplate;
+
+    private final RestTemplate restTemplate;
+    private final ApixuConfig apixuConfig;
 
     @Autowired
-    private ApixuConfig apixuConfig;
+    public ApixuClient(RestTemplate restTemplate, ApixuConfig apixuConfig) {
+        this.restTemplate = restTemplate;
+        this.apixuConfig = apixuConfig;
+    }
 
     public ForecastTomorrowDto getForecastTomorrow() {
         URI uri = getUriForecastTomorrowWarsaw();
@@ -26,7 +30,7 @@ public class ApixuClient {
         return UriComponentsBuilder.fromHttpUrl(apixuConfig.getApixuApiEndpoint())
                 .queryParam("key", apixuConfig.getApixuAppKey())
                 .queryParam("q", "Warsaw")
-                .queryParam("days",2)
+                .queryParam("days", 2)
                 .build().encode().toUri();
     }
 }

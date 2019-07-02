@@ -10,7 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StageMapperTest {
@@ -22,7 +22,7 @@ public class StageMapperTest {
     public void mapToStageDtoList() {
         //given
         List<Stage> stages = new ArrayList<>();
-        stages.add(new Stage(1l,"stageName",10));
+        stages.add(new Stage(1l, "stageName", 10));
 
         //when
         List<StageDto> stageDtoList = stageMapper.mapToStageDtoList(stages);
@@ -38,7 +38,7 @@ public class StageMapperTest {
     @Test
     public void mapToStage() {
         //given
-        StageDto stageDto = new StageDto(1l,"stageName",10);
+        StageDto stageDto = new StageDto(1l, "stageName", 10);
 
         //when
         Stage stage = stageMapper.mapToStage(stageDto);
@@ -51,13 +51,13 @@ public class StageMapperTest {
     @Test
     public void mapToStageDto() {
         //given
-        Stage stage = new Stage(1l,"stageName",10);
+        Stage stage = new Stage(1l, "stageName", 10);
 
         //when
         StageDto stageDto = stageMapper.mapToStageDto(stage);
 
         //then
-        assertEquals(1l,stageDto.getId());
+        assertEquals(1l, stageDto.getId());
         assertEquals("stageName", stageDto.getName());
         assertEquals(10, stageDto.getSeatsAmount());
     }

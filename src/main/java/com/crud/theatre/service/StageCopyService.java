@@ -51,7 +51,7 @@ public class StageCopyService {
     public void changeSeatsStatus(long stageCopyId, long seatsId, String status) {
         StageCopy stageCopy = findById(stageCopyId);
         Seats seats = stageCopy.getSeats().stream()
-                .filter(seat -> seat.getId().equals(seatsId))
+                .filter(seat -> seat.getId() == seatsId)
                 .findFirst().orElseThrow(SeatsNotFoundException::new);
         seats.setStatus(status);
         save(stageCopy);

@@ -50,7 +50,7 @@ public class SpectacleFacade {
         return actorMapper.mapToActorDtoList(spectacle.getCast());
     }
 
-    public List<SpectacleDateDto> getDates(Long spectacleId) {
+    public List<SpectacleDateDto> getDates(long spectacleId) {
         Spectacle spectacle = spectacleService.findById(spectacleId);
         return spectacleMapper.mapToDateDtoList(spectacle.getSpectacleDates());
     }
@@ -65,7 +65,7 @@ public class SpectacleFacade {
         actorService.save(actor);
     }
 
-    public void saveSpectacleDate(Long spectacleId,
+    public void saveSpectacleDate(long spectacleId,
                                   SpectacleDateDto dateDto) {
         Spectacle spectacle = spectacleService.findById(spectacleId);
         Stage stage = stageService.findById(spectacle.getStage().getId());

@@ -18,7 +18,7 @@ public class StageCopy {
     @GeneratedValue
     @Column(name = "id")
     @Id
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "stage_id")

@@ -3,7 +3,6 @@ package com.crud.theatre.controller;
 import com.crud.theatre.domain.SpectacleDto;
 import com.crud.theatre.domain.Stage;
 import com.crud.theatre.domain.StageDto;
-import com.crud.theatre.mapper.SeatsMapper;
 import com.crud.theatre.mapper.SpectacleMapper;
 import com.crud.theatre.mapper.StageMapper;
 import com.crud.theatre.service.StageService;
@@ -33,7 +32,6 @@ public class StageController {
     public void save(@RequestBody StageDto stageDto) {
         stageService.save(stageMapper.mapToStage(stageDto));
     }
-
 
     @GetMapping(value = "/stages")
     public List<StageDto> getStages(){

@@ -13,5 +13,4 @@ public class FixerConfig {
 
     @Value("${fixer.app.key}")
     private String fixerAppKey;
-
 }

@@ -50,7 +50,7 @@ public class ActorFacadeTest {
 
         //then
         actorDtoList.stream().forEach(actorDto -> {
-            assertEquals(1l, actorDto.getId().longValue());
+            assertEquals(1l, actorDto.getId());
             assertEquals("firstName test", actorDto.getFirstName());
             assertEquals("lastName test", actorDto.getLastName());
         });

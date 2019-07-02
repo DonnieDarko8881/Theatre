@@ -51,8 +51,8 @@ public class ReservationFacade {
         userService.save(user);
         seatsService.save(seats);
         reservationService.save(new Reservation(user, stageCopy, seats, seats.getNumber()));
-
-        simpleEmailService.sendReservationMail(user,stageCopy.getSpectaclePricePLN());
+        simpleEmailService.sendReservationMail(user, stageCopy, seats,
+                new Mail(user.getMail(), "Reservation", "pay one of the following currencies:"));
     }
 
     public List<ReservationDto> findAll() {

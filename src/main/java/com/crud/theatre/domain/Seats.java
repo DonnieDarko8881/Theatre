@@ -17,7 +17,7 @@ public class Seats {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "number")
     private int number;

@@ -98,7 +98,7 @@
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
                                             Dear <span th:text="${user.getFirstName()}"></span>,</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;" th:text="${message}"></p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;" th:text="${forecast}"></p>
+                                        <pre><p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;" th:text="${forecast}"></p></pre>
                                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
                                             <tbody>
                                             <tr>
@@ -133,11 +133,14 @@
                             <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
                                 <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;" th:text="${footer}"></span>
                             </td>
+                            <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
+                                <span>Weather Forecast coming from:</span>
+                                <a href="https://www.apixu.com/" title="Free Weather API"><img src='//cdn.apixu.com/v4/images/apixu-logo-1.png' alt="Weather data by Apixu.com" border="0" width="10%"></a>
+                            </td>
                         </tr>
                     </table>
                 </div>
                 <!-- END FOOTER -->
-
                 <!-- END CENTERED WHITE CONTAINER -->
             </div>
         </td>

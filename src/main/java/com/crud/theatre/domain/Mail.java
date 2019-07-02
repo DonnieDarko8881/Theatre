@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -16,6 +17,8 @@ public class Mail {
     @GeneratedValue
     @Column(name = "id")
     private long id;
+    @Column(name = "sending_date")
+    private LocalDateTime sendingDate;
     @Column(name = "mail_to")
     private String mailTo;
     @Column(name = "to_cc")
@@ -29,6 +32,7 @@ public class Mail {
         this.mailTo = mailTo;
         this.subject = subject;
         this.message = message;
+        this.sendingDate = LocalDateTime.now();
     }
 }
 

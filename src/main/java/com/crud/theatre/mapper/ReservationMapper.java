@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class ReservationMapper {
-    public List<ReservationDto> mapToReservationDtoList(List<Reservation> reservations){
+    public List<ReservationDto> mapToReservationDtoList(final List<Reservation> reservations){
         return reservations.stream()
                 .map(reservation -> new ReservationDto(
                     reservation.getId(),

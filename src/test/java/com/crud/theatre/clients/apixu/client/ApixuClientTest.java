@@ -16,11 +16,9 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.helger.commons.mock.CommonsAssert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -62,7 +60,7 @@ public class ApixuClientTest {
         assertNotNull(forecastTomorrowWarsaw.getForecast());
         assertEquals(2, forecastTomorrowWarsaw.getForecast().getForecastday().size());
         assertEquals(LocalDate.now().plusDays(1), forecastDayTomorrow.getDate());
-        assertEquals(15.0,forecastDayTomorrow.getDay().getAvgtemp_c(),0.1);
-        assertEquals("test condition tomorrow",forecastDayTomorrow.getDay().getCondition().getText());
+        assertEquals(15.0, forecastDayTomorrow.getDay().getAvgtemp_c(), 0.1);
+        assertEquals("test condition tomorrow", forecastDayTomorrow.getDay().getCondition().getText());
     }
 }

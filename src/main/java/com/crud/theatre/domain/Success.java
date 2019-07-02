@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class Success {
-    boolean success;
+    private boolean success;
 }

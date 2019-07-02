@@ -18,15 +18,15 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public void save(Reservation reservation){
+    public void save(Reservation reservation) {
         reservationRepository.save(reservation);
     }
 
-    public List<Reservation> findAll(){
+    public List<Reservation> findAll() {
         return reservationRepository.findAll();
     }
 
-    public Reservation findById(long reservationId){
+    public Reservation findById(long reservationId) {
         return reservationRepository.findById(reservationId).orElseThrow(ReservationNotFoundException::new);
     }
 }

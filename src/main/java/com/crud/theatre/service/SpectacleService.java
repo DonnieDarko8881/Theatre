@@ -18,16 +18,16 @@ public class SpectacleService {
         this.spectacleRepository = spectacleRepository;
     }
 
-    public List<Spectacle> findAll(){
+    public List<Spectacle> findAll() {
         return spectacleRepository.findAll();
     }
 
-    public void save(Spectacle spectacle){
+    public void save(Spectacle spectacle) {
         spectacleRepository.save(spectacle);
     }
 
     public Spectacle findById(long spectacleId) throws SpectacleNotFoundException {
-       return spectacleRepository.findById(spectacleId).orElseThrow(SpectacleNotFoundException::new);
+        return spectacleRepository.findById(spectacleId).orElseThrow(SpectacleNotFoundException::new);
     }
 
     public void delete(Spectacle spectacle) {

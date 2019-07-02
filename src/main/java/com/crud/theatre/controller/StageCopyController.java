@@ -2,9 +2,7 @@ package com.crud.theatre.controller;
 
 import com.crud.theatre.domain.StageCopyDto;
 import com.crud.theatre.mapper.StageCopyMapper;
-import com.crud.theatre.service.DateService;
 import com.crud.theatre.service.StageCopyService;
-import com.crud.theatre.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1")
 public class StageCopyController {
+
     private final StageCopyService stageCopyService;
     private final StageCopyMapper mapper;
 
+    @Autowired
     public StageCopyController(StageCopyService stageCopyService, StageCopyMapper mapper) {
         this.stageCopyService = stageCopyService;
         this.mapper = mapper;
