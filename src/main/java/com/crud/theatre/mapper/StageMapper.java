@@ -20,9 +20,9 @@ public class StageMapper {
     }
 
     public StageDto mapToStageDto(final Stage stage) {
-        try {
+        if (stage != null) {
             return new StageDto(stage.getId(), stage.getName(), stage.getSeatsAmount());
-        } catch (NullPointerException e) {
+        } else {
             return null;
         }
     }

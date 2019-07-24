@@ -79,7 +79,7 @@ public class SpectacleDateControllerTest {
         //Given
         SpectacleDto spectacleDto = new SpectacleDto(1L, "Spectacle Test");
         StageDto stageDto = new StageDto(1l, "Stage Test", 10);
-        LocalDateTime date = LocalDateTime.now();
+        LocalDateTime date = LocalDateTime.parse("2018-10-10T13:50");
         StageCopyDto stageCopyDto = StageCopyDto.builder().id(1l).build();
 
         List<SpectacleDateDto> spectacleDateDtoList = new ArrayList<>();
