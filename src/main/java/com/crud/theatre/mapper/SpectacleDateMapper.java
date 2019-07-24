@@ -33,11 +33,11 @@ public class SpectacleDateMapper {
     }
 
     private StageCopyDto mapToStageCopyDto(final SpectacleDate date) {
-        try {
+        if (date != null && date.getStageCopy() != null) {
             return StageCopyDto.builder()
                     .id(date.getStageCopy().getId())
                     .build();
-        } catch (NullPointerException e) {
+        } else {
             return null;
         }
     }
