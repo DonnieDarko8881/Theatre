@@ -17,8 +17,9 @@ import javax.validation.constraints.NotNull;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_id")
     private long id;
+    //    @Column(name = "id")
 
     @Column(name = "first_name")
     private String firstName;
