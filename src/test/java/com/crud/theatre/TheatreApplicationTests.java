@@ -12,5 +12,4 @@ public class TheatreApplicationTests {
     @Test
     public void contextLoads() {
     }
-
 }
